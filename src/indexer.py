@@ -27,7 +27,6 @@ class Indexer:
             }
 
             tokens = self.tokenize(content)
-
             word_positions = defaultdict(list)
 
             for position, word in enumerate(tokens):
@@ -44,22 +43,25 @@ class Indexer:
             "index": dict(self.index)
         }
 
-def save_index(self, filepath, index_data):
-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    def save_index(self, filepath, index_data):
+        directory = os.path.dirname(filepath)
 
-    with open(filepath, "w", encoding="utf-8") as file:
-        json.dump(index_data, file, indent=4)
+        if directory:
+            os.makedirs(directory, exist_ok=True)
 
-def load_index(self, filepath):
-    if not os.path.exists(filepath):
-        raise FileNotFoundError(
-            "Index file not found. Please run the build command first."
-        )
+        with open(filepath, "w", encoding="utf-8") as file:
+            json.dump(index_data, file, indent=4)
 
-    with open(filepath, "r", encoding="utf-8") as file:
-        index_data = json.load(file)
+    def load_index(self, filepath):
+        if not os.path.exists(filepath):
+            raise FileNotFoundError(
+                "Index file not found. Please run 'build' first."
+            )
 
-    self.documents = index_data["documents"]
-    self.index = index_data["index"]
+        with open(filepath, "r", encoding="utf-8") as file:
+            index_data = json.load(file)
 
-    return index_data
+        self.documents = index_data["documents"]
+        self.index = index_data["index"]
+
+        return index_data
