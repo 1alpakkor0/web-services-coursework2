@@ -1,6 +1,11 @@
-from crawler import Crawler
-from indexer import Indexer
-from search import SearchEngine
+try:
+    from .crawler import Crawler
+    from .indexer import Indexer
+    from .search import SearchEngine
+except ImportError:
+    from crawler import Crawler
+    from indexer import Indexer
+    from search import SearchEngine
 
 
 INDEX_FILE = "data/index.json"
