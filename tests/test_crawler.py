@@ -1,4 +1,5 @@
 from src.crawler import Crawler
+from unittest.mock import patch
 
 
 SAMPLE_HTML = """
@@ -36,3 +37,25 @@ def test_get_next_page_url_returns_absolute_url():
     )
 
     assert next_url == "https://quotes.toscrape.com/page/2/"
+
+
+
+def test_fetch_page_success():
+    crawler = Crawler(politeness_delay=0)
+
+    html = crawler.fetch_page("https://quotes.toscrape.com/")
+    assert html is not None
+
+
+def test_fetch_page_failure():
+    crawler= Crawler(politeness_delay=0)
+    html=crawler.fetch_page("https://invalid-url-12345.com")
+    assert html is None
+
+
+def test_crawl_stops_without_next_page():
+    crawler= Crawler(politeness_delay=0)
+
+    with patch.object(crawler, "fetch_page", return_value="<html></html>"):
+        pages = crawler.crawl()
+        assert isinstance(pages, list)
