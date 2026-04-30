@@ -43,3 +43,23 @@ class Indexer:
             "documents": self.documents,
             "index": dict(self.index)
         }
+
+def save_index(self, filepath, index_data):
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
+    with open(filepath, "w", encoding="utf-8") as file:
+        json.dump(index_data, file, indent=4)
+
+def load_index(self, filepath):
+    if not os.path.exists(filepath):
+        raise FileNotFoundError(
+            "Index file not found. Please run the build command first."
+        )
+
+    with open(filepath, "r", encoding="utf-8") as file:
+        index_data = json.load(file)
+
+    self.documents = index_data["documents"]
+    self.index = index_data["index"]
+
+    return index_data
