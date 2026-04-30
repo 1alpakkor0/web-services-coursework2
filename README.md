@@ -120,6 +120,48 @@ Example usage:
 > find good friends  
 > exit  
 
+
+### 1. build
+
+> build
+
+- Crawls the website  
+- Builds the inverted index  
+- Saves the index to the file system  
+
+---
+
+### 2. load
+
+> load
+
+- Loads a previously saved index file  
+
+---
+
+### 3. print
+
+> print <word>
+
+Example:
+
+> print love
+
+- Displays the inverted index entry for a word  
+- Shows frequency and positions  
+
+---
+
+### 4. find
+
+> find <query>
+
+Examples:
+
+> find life  
+> find good friends  
+
+
 ---
 
 ## Testing
